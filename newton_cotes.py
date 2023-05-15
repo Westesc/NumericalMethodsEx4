@@ -8,7 +8,7 @@ def simpson(a, b, ifun, n):
 
     for i in range(0, n):
         x = a + c * i
-        y = funtionsAll(x,ifun) * exp(-(x * x))
+        y = funtionsAll(x, ifun) * exp(-(x * x))
         if i == 0 or i == n - 1:
             result += y
         elif i % 2 == 0:
@@ -19,28 +19,28 @@ def simpson(a, b, ifun, n):
 
 
 def newton_cotes(a, b, ifun, precision):
-    t =0.0
+    t = 0.0
     result = 0.0
     n = 2
-    while abs(result -t) > precision or t ==0.0 or result == 0.0:
+    while abs(result - t) > precision or t == 0.0 or result == 0.0:
         t = result
         result = simpson(a, b, ifun, n)
         n = n * 2
     return result
 
+
 def newton_INFI(step, ifun, precision):
-    result =0
-    v= 0
-    start= 0
-    while abs(v)> precision or start == 0:
-        v = newton_cotes(start, start + step, ifun, precision)
-        print(v)
-        result+= v
-        start +=step
+    result = 0
+    v = 0
     start = 0
-    while abs(v)> precision or start == 0:
+    while abs(v) > precision or start == 0:
+        v = newton_cotes(start, start + step, ifun, precision)
+        result += v
+        start += step
+    start = 0
+    while abs(v) > precision or start == 0:
         v = newton_cotes(start - step, start, ifun, precision)
-        print(v)
-        result+= v
-        start -=step
+
+        result += v
+        start -= step
     return result
